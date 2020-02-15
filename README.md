@@ -45,6 +45,6 @@
 
 ## 项目截图：
 
-![关卡选择](https://springboot-blog-1256194683.cos.ap-beijing.myqcloud.com/pic/py-1.jpg)
+![关卡选择] (https://springboot-blog-1256194683.cos.ap-beijing.myqcloud.com/pic/py-1.jpg)
 
-![游戏中](https://springboot-blog-1256194683.cos.ap-beijing.myqcloud.com/pic/py-2.jpg)
+![游戏中] (https://springboot-blog-1256194683.cos.ap-beijing.myqcloud.com/pic/py-2.jpg)
