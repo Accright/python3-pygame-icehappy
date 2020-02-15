@@ -384,7 +384,6 @@ class Manager:
                     if self.energy_num < 5:
                         self.level = 0
                     self.reset_mode = True
-                    # self.set_level_mode(self.level)
                 elif Board.button_position[1][0] < mouse_down_x < Board.button_position[1][0]+100 \
                         and Board.button_position[1][1]-50 < mouse_down_y < Board.button_position[1][1]:  # 点击下一关按钮
                     if self.energy_num < 5:
@@ -392,9 +391,6 @@ class Manager:
                     else:
                         self.level += 1                                                   # 关卡数加一
                     self.reset_mode = True
-                    # self.set_level_mode(self.level)
-                # elif self.success_board.rect[0]+410 < mouse_down_x < self.success_board.rect[0]+410+55 \
-                #         and self.success_board.rect.bottom+245-55 < mouse_down_x < self.success_board.rect.bottom+245:
                 elif 610 < mouse_down_x < 610 + 55 and 205 - 55 < mouse_down_y < 205:   # x
                     self.level = 0
                     self.reset_mode = True
@@ -414,8 +410,6 @@ class Manager:
                         self.step += 5
                         self.type = 0                           # 游戏中
                         self.fail_board = Board(Board.fail_board, [200, 0])
-                # elif self.success_board.rect[0] + 410 < mouse_down_x < self.success_board.rect[0] + 410 + 55 \
-                #         and self.success_board.rect.bottom+245-55 < mouse_down_x < self.success_board.rect.bottom+245:
                 elif 610 < mouse_down_x < 610 + 55 and 205 - 55 < mouse_down_y < 205:   # x
                     self.level = 0
                     self.reset_mode = True
@@ -554,278 +548,45 @@ class Manager:
         else:
             self.death_sign = True
 
-    # def eliminate_animal(self):
-    #     """消除小动物"""
-    #     score_level = self.score       # 当前得分
-    #     """543连消"""
-    #     for i in range(self.row, self.row + self.height):
-    #         for j in range(self.col, self.col + self.width):
-    #             if self.animal[i][j] == self.animal[i][j+1] == self.animal[i][j+2] == self.animal[i][j-1] == self.animal[i][j-2] \
-    #                     and self.animal[i][j] != -1:            # 横五
-    #                 if self.selected != [-1, -1]:
-    #                     self.change_value_sign = True
-    #                 self.score += 5
-    #                 # print("5", [i, j])
-    #                 SoundPlay(SoundPlay.eliminate[4])                         # 消除声音4
-    #                 self.animal_num[self.animal[i][j]] += 5                     # 消除某种小动物计数
-    #                 self.animal[i][j-2] = self.animal[i][j+1] = self.animal[i][j+2] = self.animal[i][j-1] = -2
-    #                 # self.animal[i][j + 2] = 15
-    #                 self.animal[i][j] = -2
-    #             elif self.animal[i][j] == self.animal[i][j+1] == self.animal[i][j+2] == self.animal[i][j+3] \
-    #                     and self.animal[i][j] != -1:            # 横四
-    #                 if self.selected != [-1, -1]:
-    #                     self.change_value_sign = True
-    #                 self.score += 3
-    #                 # print("横四", [i, j])
-    #                 SoundPlay(SoundPlay.eliminate[3])                                # 消除声音3
-    #                 self.animal_num[self.animal[i][j]] += 4                            # 消除某种小动物计数
-    #                 if i == self.boom_sel[0] and j+1 == self.boom_sel[1]:
-    #                     # self.animal[i][j+1] += 5
-    #                     self.animal[i][j + 1] = -2
-    #                     self.animal[i][j] = self.animal[i][j + 2] = self.animal[i][j + 3] = -2
-    #                 else:
-    #                     # self.animal[i][j+2] += 5
-    #                     self.animal[i][j + 2] = -2
-    #                     self.animal[i][j] = self.animal[i][j + 1] = self.animal[i][j + 3] = -2
-    #             elif self.animal[i][j] == self.animal[i][j + 1] == self.animal[i][j + 2] and self.animal[i][j] != -1:
-    #                 if self.selected != [-1, -1]:              # 横3
-    #                     self.change_value_sign = True
-    #                 self.score += 2
-    #                 # print("横三", [i, j])
-    #                 SoundPlay(SoundPlay.eliminate[0])  # 消除声音0
-    #                 self.animal_num[self.animal[i][j]] += 3  # 消除某种小动物计数
-    #                 self.animal[i][j] = self.animal[i][j + 1] = self.animal[i][j + 2] = -2
-    #             if self.animal[i][j] == self.animal[i+1][j] == self.animal[i+2][j] == self.animal[i-1][j] == self.animal[i-2][j] \
-    #                     and self.animal[i][j] != -1:             # 纵五
-    #                 if self.selected != [-1, -1]:
-    #                     self.change_value_sign = True
-    #                 self.score += 5
-    #                 # print("55", [i, j])
-    #                 SoundPlay(SoundPlay.eliminate[4])                         # 消除声音4
-    #                 self.animal_num[self.animal[i][j]] += 5                     # 消除某种小动物计数
-    #                 self.animal[i+2][j] = self.animal[i + 1][j] = self.animal[i-1][j] = self.animal[i-2][j] = -2
-    #                 # self.animal[i + 2][j] = 15
-    #                 self.animal[i][j] = -2
-    #             elif self.animal[i][j] == self.animal[i+1][j] == self.animal[i+2][j] == self.animal[i+3][j] \
-    #                     and self.animal[i][j] != -1:            # 纵四
-    #                 if self.selected != [-1, -1]:
-    #                     self.change_value_sign = True
-    #                 self.score += 3
-    #                 # print("纵四", [i, j])
-    #                 SoundPlay(SoundPlay.eliminate[3])                                 # 消除声音3
-    #                 self.animal_num[self.animal[i][j]] += 4                             # 消除某种小动物计数
-    #                 if i+1 == self.boom_sel[0] and j == self.boom_sel[1]:
-    #                     # self.animal[i + 1][j] += 5
-    #                     self.animal[i + 1][j] = -2
-    #                     self.animal[i][j] = self.animal[i + 2][j] = self.animal[i + 3][j] = -2
-    #                 else:
-    #                     # self.animal[i + 2][j] += 5
-    #                     self.animal[i + 2][j] = -2
-    #                     self.animal[i][j] = self.animal[i + 1][j] = self.animal[i + 3][j] = -2
-    #             elif self.animal[i][j] == self.animal[i + 1][j] == self.animal[i + 2][j] and self.animal[i][j] != -1:
-    #                 if self.selected != [-1, -1]:           # 纵3
-    #                     self.change_value_sign = True
-    #                 self.score += 2
-    #                 # print("纵三", [i, j])
-    #                 SoundPlay(SoundPlay.eliminate[0])  # 消除声音0
-    #                 self.animal_num[self.animal[i][j]] += 3  # 消除某种小动物计数
-    #                 self.animal[i][j] = self.animal[i + 1][j] = self.animal[i + 2][j] = -2
-    #
-    #     """丁字，勾连消"""
-    #     for i in range(self.row, self.row + self.height):
-    #         for j in range(self.col, self.col + self.width):
-    #             # 丁字
-    #             if self.animal[i][j] == self.animal[i][j-1] == self.animal[i][j+1] and self.animal[i][j] != -1:
-    #                 if self.animal[i][j] == self.animal[i+1][j] == self.animal[i+2][j]:  # 下丁
-    #                     if self.selected != [-1, -1]:
-    #                         self.change_value_sign = True
-    #                     self.score += 3
-    #                     # print("下丁", [i, j])
-    #                     SoundPlay(SoundPlay.eliminate[2])                                              # 消除声音2
-    #                     self.animal_num[self.animal[i][j]] += 5                                        # 消除某种小动物计数
-    #                     self.animal[i + 1][j] = self.animal[i + 2][j] = self.animal[i][j-1] = self.animal[i][j+1] = -2
-    #                     # self.animal[i][j] += 10
-    #                     self.animal[i][j] = -2
-    #                 elif self.animal[i][j] == self.animal[i-1][j] == self.animal[i-2][j]:  # 上丁
-    #                     if self.selected != [-1, -1]:
-    #                         self.change_value_sign = True
-    #                     self.score += 3
-    #                     # print("上丁", [i, j])
-    #                     SoundPlay(SoundPlay.eliminate[2])                                                   # 消除声音2
-    #                     self.animal_num[self.animal[i][j]] += 5                                       # 消除某种小动物计数
-    #                     self.animal[i][j - 1] = self.animal[i][j + 1] = self.animal[i-1][j] = self.animal[i-2][j] = -2
-    #                     # self.animal[i][j] += 10
-    #                     self.animal[i][j] = -2
-    #             if self.animal[i][j] == self.animal[i-1][j] == self.animal[i+1][j] and self.animal[i][j] != -1:
-    #                 if self.animal[i][j] == self.animal[i][j-1] == self.animal[i][j-2]:  # 左丁
-    #                     if self.selected != [-1, -1]:
-    #                         self.change_value_sign = True
-    #                     self.score += 3
-    #                     # print("下丁", [i, j])
-    #                     SoundPlay(SoundPlay.eliminate[2])  # 消除声音2
-    #                     self.animal_num[self.animal[i][j]] += 5  # 消除某种小动物计数
-    #                     self.animal[i + 1][j] = self.animal[i + 2][j] = self.animal[i][j - 1] = self.animal[i][j + 1] = -2
-    #                     # self.animal[i][j] += 10
-    #                     self.animal[i][j] = -2
-    #                 elif self.animal[i][j] == self.animal[i][j+1] == self.animal[i][j+2]:  # 右丁
-    #                     if self.selected != [-1, -1]:
-    #                         self.change_value_sign = True
-    #                     self.score += 3
-    #                     # print("上丁", [i, j])
-    #                     SoundPlay(SoundPlay.eliminate[2])  # 消除声音2
-    #                     self.animal_num[self.animal[i][j]] += 5  # 消除某种小动物计数
-    #                     self.animal[i][j - 1] = self.animal[i][j + 1] = self.animal[i - 1][j] = self.animal[i - 2][j] = -2
-    #                     # self.animal[i][j] += 10
-    #                     self.animal[i][j] = -2
-    #             # 勾
-    #             elif self.animal[i][j] == self.animal[i][j+1] == self.animal[i][j+2] and self.animal[i][j] != -1:
-    #                 if self.animal[i][j] == self.animal[i+1][j] == self.animal[i+2][j]:  # 右下
-    #                     if self.selected != [-1, -1]:
-    #                         self.change_value_sign = True
-    #                     self.score += 3
-    #                     # print("右下", [i, j])
-    #                     SoundPlay(SoundPlay.eliminate[1])                                                   # 消除声音1
-    #                     self.animal_num[self.animal[i][j]] += 5                                        # 消除某种小动物计数
-    #                     self.animal[i][j + 1] = self.animal[i][j + 2] = self.animal[i+1][j] = self.animal[i+2][j] = -2
-    #                     # self.animal[i][j] += 10
-    #                     self.animal[i][j] = -2
-    #                 elif self.animal[i][j] == self.animal[i-1][j] == self.animal[i-2][j]:            # 右上
-    #                     if self.selected != [-1, -1]:
-    #                         self.change_value_sign = True
-    #                     self.score += 3
-    #                     # print("右上", [i, j])
-    #                     SoundPlay(SoundPlay.eliminate[1])                                                   # 消除声音1
-    #                     self.animal_num[self.animal[i][j]] += 5                                       # 消除某种小动物计数
-    #                     self.animal[i][j + 1] = self.animal[i][j + 2] = self.animal[i-1][j] = self.animal[i-2][j] = -2
-    #                     # self.animal[i][j] += 10
-    #                     self.animal[i][j] = -2
-    #             elif self.animal[i][j] == self.animal[i][j-1] == self.animal[i][j-2] and self.animal[i][j] != -1:
-    #                 if self.animal[i][j] == self.animal[i+1][j] == self.animal[i+2][j]:  # 左下
-    #                     if self.selected != [-1, -1]:
-    #                         self.change_value_sign = True
-    #                     self.score += 3
-    #                     # print("左下", [i, j])
-    #                     SoundPlay(SoundPlay.eliminate[1])                                                   # 消除声音1
-    #                     self.animal_num[self.animal[i][j]] += 5                                        # 消除某种小动物计数
-    #                     self.animal[i][j - 1] = self.animal[i][j - 2] = self.animal[i+1][j] = self.animal[i+2][j] = -2
-    #                     # self.animal[i][j] += 10
-    #                     self.animal[i][j] = -2
-    #                 elif self.animal[i][j] == self.animal[i-1][j] == self.animal[i-2][j]:            # 左上
-    #                     if self.selected != [-1, -1]:
-    #                         self.change_value_sign = True
-    #                     self.score += 3
-    #                     # print("左上", [i, j])
-    #                     SoundPlay(SoundPlay.eliminate[1])                                                   # 消除声音1
-    #                     self.animal_num[self.animal[i][j]] += 5                                        # 消除某种小动物计数
-    #                     self.animal[i][j - 1] = self.animal[i][j - 2] = self.animal[i-1][j] = self.animal[i-2][j] = -2
-    #                     # self.animal[i][j] += 10
-    #                     self.animal[i][j] = -2
-    #     eliminate_ice = []
-    #     for i in range(self.row, self.row + self.height):
-    #         for j in range(self.col, self.col + self.width):
-    #             if self.animal[i][j] == 5 and (-2 in [self.animal[i+1][j], self.animal[i-1][j], self.animal[i][j+1], self.animal[i][j-1]]):
-    #                 eliminate_ice.append((i, j))
-    #     # print(len(eliminate_ice))
-    #     for n in range(len(eliminate_ice)):
-    #         self.animal[eliminate_ice[n][0]][eliminate_ice[n][1]] = -2
-    #
-    #     self.fall_animal()
-    #
-    #     score_level = self.score-score_level     # 一次点击交换后消除的得分值
-    #
-    #     # 根据得分差值，播放不同声音，画不同图片，good，great，amazing，excellent，unbelievable，
-    #     if score_level < 5:
-    #         pass
-    #     elif score_level < 8:           # 5 good
-    #         SoundPlay(SoundPlay.score_level[0])
-    #         Element(Element.score_level[0], (350, 250)).draw(self.screen)
-    #         pygame.display.flip()
-    #         pygame.time.delay(500)
-    #     elif score_level < 10:          # 8 great
-    #         SoundPlay(SoundPlay.score_level[1])
-    #         Element(Element.score_level[1], (350, 250)).draw(self.screen)
-    #         pygame.display.flip()
-    #         pygame.time.delay(500)
-    #     elif score_level < 15:          # 10 amazing
-    #         SoundPlay(SoundPlay.score_level[2])
-    #         Element(Element.score_level[2], (350, 250)).draw(self.screen)
-    #         pygame.display.flip()
-    #         pygame.time.delay(500)
-    #     elif score_level < 20:          # 15 excellent
-    #         SoundPlay(SoundPlay.score_level[3])
-    #         Element(Element.score_level[3], (350, 250)).draw(self.screen)
-    #         pygame.display.flip()
-    #         pygame.time.delay(500)
-    #     elif score_level >= 20:         # 20 unbelievable
-    #         SoundPlay(SoundPlay.score_level[4])
-    #         Element(Element.score_level[4], (350, 250)).draw(self.screen)
-    #         pygame.display.flip()
-    #         pygame.time.delay(500)
-    #     return self.change_value_sign      # 返回是否交换值标志
-
     def exist_left(self, i, j, num):
         sl = 0
         for temp in range(0,int(num)):
-            # print("leftxxxxxx", temp,self.animal[i][j], self.animal[i + temp][j])
             if self.animal[i][j] == self.animal[i][j-temp] and self.animal[i][j]!= -1 and self.animal[i][j] != -2:
-                # j = j - 1
-                # self.animal[i][j] = self.animal[i][j-1]
                 sl += 1
-                # print('left', 'judge num',sl,num,i, j)
                 if sl == num:
-                    # print('left', 'return true')
                     return True
             else:
-                # print('left', 'return false')
                 return False
 
     def exist_right(self, i, j, num):
         sr = 0
         for temp in range(0, int(num)):
-            # print("rightxxxxxx",temp, self.animal[i][j], self.animal[i + temp][j])
             if self.animal[i][j] == self.animal[i][j + temp] and self.animal[i][j]!= -1 and self.animal[i][j] != -2:
-                # j = j + 1
-                # self.animal[i][j] = self.animal[i][j + 1]
                 sr = sr + 1
-                # print('right', 'judge num',sr,num,i, j)
                 if sr == num:
-                    # print('right','return true')
                     return True
             else:
-                # print('right', 'return false')
                 return False
 
     def exist_up(self, i, j, num):
         su = 0
         for temp in range(0, int(num)):
-            # print("upxxxxxx", temp,self.animal[i][j], self.animal[i + temp][j])
             if self.animal[i][j] == self.animal[i - temp][j] and self.animal[i][j]!= -1 and self.animal[i][j] != -2:
-                # self.animal[i][j] = self.animal[i - 1][j]
-                # i = i - 1
                 su = su + 1
-                # print('up', 'judge num',su,num,i, j)
                 if su == num:
-                    # print('up', 'return true')
                     return True
             else:
-                # print('up', 'return false')
                 return False
 
     def exist_down(self, i, j, num):
         sd = 0
         for temp in range(0, int(num)):
-            # print("downxxxxxx",temp,self.animal[i][j],self.animal[i+temp][j])
             if self.animal[i][j] == self.animal[i + temp][j] and self.animal[i][j]!= -1 and self.animal[i][j] != -2:
-                # self.animal[i][j] = self.animal[i + 1][j]
-                # i = i + 1
                 sd = sd + 1
-                # print('down', 'judge num',sd,num,i, j)
                 if sd == num:
-                    # print('down', 'return true')
                     return True
                 else:pass
             else:
-                # print('down', 'return false')
                 return False
 
     def change_left(self, i, j, num):
@@ -835,18 +596,6 @@ class Manager:
         for k in range(0,int(num)):
             print('location',i, j-k,self.animal[i][j-k])
             self.animal[i][j-k] = -2
-        # cl = 1
-        # for temp in (0, num):
-        #     if self.animal[i][j] == self.animal[i][j - 1] :
-        #         self.animal[i][j] = self.animal[i][j - 1] = -2
-        #         cl = cl + 1
-        #         print('changeleft', 'judge num')
-        #         if cl == num:
-        #             print('changeleft', 'return true')
-        #             return True
-        #     else:
-        #         print('changeleft', 'return false')
-        #         return False
 
     def change_right(self, i, j, num):
         self.change_value_sign = True
@@ -855,18 +604,6 @@ class Manager:
         for k in range(0,int(num)):
             print('location', i, j + k, self.animal[i][j + k])
             self.animal[i][j+k] = -2
-        # cr = 1
-        # for temp in (0, num):
-        #     if self.animal[i][j] == self.animal[i][j + 1] :
-        #         self.animal[i][j] = self.animal[i][j + 1] = -2
-        #         cr = cr + 1
-        #         print('changeright', 'judge num')
-        #         if cr == num:
-        #             print('changeright', 'return true')
-        #             return True
-        #     else:
-        #         print('changeright', 'return false')
-        #         return False
 
     def change_up(self, i, j, num):
         self.change_value_sign = True
@@ -875,18 +612,6 @@ class Manager:
         for k in range(0,int(num)):
             print('location', i - k, j, self.animal[i - k][j ])
             self.animal[i-k][j] = -2
-        # cu = 1
-        # for temp in (0, num):
-        #     if self.animal[i][j] == self.animal[i - 1][j] :
-        #         self.animal[i][j] = self.animal[i - 1][j] = -2
-        #         cu = cu + 1
-        #         print('changeup', 'judge num')
-        #         if cu == num:
-        #             print('changeup', 'return true')
-        #             return True
-        #     else:
-        #         print('changeup', 'return false')
-        #         return False
 
     def change_down(self, i, j, num):
         self.change_value_sign = True
@@ -895,18 +620,6 @@ class Manager:
         for k in range(0,int(num)):
             print('location', i + k, j, self.animal[i + k][j])
             self.animal[i+k][j] = -2
-        # cd = 1
-        # for temp in (0, num):
-        #     if self.animal[i][j] == self.animal[i + 1][j]:
-        #         self.animal[i][j] = self.animal[i + 1][j] = -2
-        #         cd = cd + 1
-        #         print('changedown', 'judge num')
-        #         if cd == num:
-        #             print('changedown', 'return true')
-        #             return True
-        #     else:
-        #         print('changedown', 'return false')
-        #         return False
 
     def eliminate_animal(self):
         score_level = self.score
@@ -1092,74 +805,6 @@ class Manager:
 
         return self.change_value_sign      # 返回是否交换值标志
 
-    # def fall_animal(self):
-    #     """下落函数"""
-    #     index = 0
-    #     for i in range(self.row, self.row + self.height):
-    #         for j in range(self.col, self.col + self.width):
-    #             if self.animal[i][j] == -2:
-    #                 x, y = self.rc_xy(i, j)
-    #                 for index in range(0, 6):
-    #                     pygame.time.delay(100)
-    #                     self.draw_brick(x, y)
-    #                     Element(Element.bling[index], (x, y)).draw(self.screen)
-    #                     pygame.display.flip()
-    #
-    #                 for m in range(i, self.row - 1, -1):
-    #                     if self.animal[m - 1][j] != -1:
-    #                         x, y = self.rc_xy(m - 1, j)
-    #                         animal = Element(Element.animal[self.animal[m - 1][j]], self.rc_xy(m - 1, j))
-    #                         animal.move([0, 10])
-    #                         # pygame.time.delay(5)
-    #                         self.draw_brick(x, y)
-    #                         animal.draw(self.screen)
-    #                         pygame.display.flip()
-    #                         self.animal[m][j] = self.animal[m - 1][j]
-    #                     else:
-    #                         self.animal[m][j] = random.randint(0, 4)
-    #                         break
-
-    # def eliminate_animal_test(self):
-    #     s = 1
-    #     for i in range(self.row, self.row+self.height):
-    #         for j in range(self.col, self.col+self.width):
-    #             # current_rc = [i, j]
-    #             if self.animal[i][j] ==self.animal[i][j+1]:
-    #                 s += 1
-    #             else:
-    #                 if s
-
-    # def judge_animal(self, rc1, rc2):
-    #     """判断两坐标之间小动物是否相等"""
-    #     judge_sign = True
-    #     if rc1[0] == rc2[0]:
-    #         i = rc1[0]
-    #         for j in range(rc1[1], rc2[1]):
-    #             if self.animal[i][j] != self.animal[i][j+1]:
-    #                 judge_sign = False
-    #                 break
-    #     elif rc1[1] == rc2[1]:
-    #         j = rc1[1]
-    #         for i in range(rc1[0], rc2[0]):
-    #             if self.animal[i][j] != self.animal[i+1][j]:
-    #                 judge_sign = False
-    #                 break
-    #     else:
-    #         print("rc error!")
-    #     return judge_sign
-
-    # def fall_animal(self):
-    #     """下落函数"""
-    #     for i in range(self.row, self.row+self.height):
-    #         for j in range(self.col, self.col+self.width):
-    #             if self.animal[i][j] == -2:
-    #                 for m in range(i, self.row-1, -1):
-    #                     if self.animal[m-1][j] != -1:
-    #                         self.animal[m][j] = self.animal[m-1][j]
-    #                     else:
-    #                         self.animal[m][j] = random.randint(0, 5)
-    #                         break
-
     def fall_animal(self):
         """下落函数"""
         clock = pygame.time.Clock()
@@ -1183,59 +828,6 @@ class Manager:
                         Element(Element.ice_eli[index], (pos[0], pos[1])).draw(self.screen)
                     Element(Element.bling[index], (pos[0], pos[1])).draw(self.screen)
                     pygame.display.flip()
-        # speed = [0, 1]
-        # while speed != [0, 0]:
-        #     for i in range(self.row, self.row+self.height):
-        #         for j in range(self.col, self.col+self.width):
-        #             if self.animal[i][j] == -2:
-        #                 self.ice_list[i][j] = -1
-        #                 for m in range(i, self.row - 1, -1):
-        #                     if self.animal[m - 1][j] != -1:
-        #                         x, y = self.rc_xy(m - 1, j)
-        #                         animal = Element(Element.animal[self.animal[m - 1][j]], (x, y))
-        #                         # clock.tick(20)
-        #                         animal.move([0, 1])
-        #                         speed = animal.speed
-        #                         self.draw_brick(x, y)
-        #                         animal.draw(self.screen)
-        #                         pygame.display.flip()
-        #                         # self.animal[m][j] = self.animal[m - 1][j]
-        #                     else:
-        #                         # self.animal[m][j] = random.randint(0, 5)
-        #                         break
-        # fall_animal_list = []
-        # for i in range(self.row, self.row + self.height):
-        #     for j in range(self.col, self.col + self.width):
-        #         if self.animal[i][j] == -2:
-        #             brick_position = []
-        #             x, y = self.rc_xy(i, j)
-        #             if self.ice_list[i][j] == 1:
-        #                 SoundPlay(SoundPlay.ice_break)
-        #                 self.ice_num += 1
-        #                 self.ice_list[i][j] = -1
-        #             fall_animal_list = []
-        #             brick_position.append((x, y))
-        #             speed = [0, 1]
-        #             for m in range(i, self.row - 1, -1):
-        #                 if self.animal[m - 1][j] != -1:
-        #                     x, y = self.rc_xy(m - 1, j)
-        #                     brick_position.append((x, y))
-        #                     animal = Element(Element.animal[self.animal[m - 1][j]], (x, y))
-        #                     fall_animal_list.append(animal)
-        #                     self.animal[m][j] = self.animal[m - 1][j]
-        #                 else:
-        #                     self.animal[m][j] = random.randint(0, 5)
-        #                     break
-        #             while speed != [0, 0] and fall_animal_list != []:
-        #                 # clock.tick(300)
-        #                 for position in brick_position:
-        #                     self.draw_brick(position[0], position[1])
-        #                 for animal_sprite in fall_animal_list:
-        #                     animal_sprite.move(speed)
-        #                     animal_sprite.draw(self.screen)
-        #                     print('animal speed', animal_sprite.speed)
-        #                     speed = animal_sprite.speed
-        #                 pygame.display.flip()
         for i in range(self.row, self.row + self.height):
             brick_position = []
             fall_animal_list = []
@@ -1262,7 +854,6 @@ class Manager:
                             self.animal[m][j] = random.randint(0, 5)
                             break
             while speed != [0, 0] and fall_animal_list != []:
-                # clock.tick(300)
                 for position in brick_position:
                     self.draw_brick(position[0], position[1])
                 for animal_sprite in fall_animal_list:
@@ -1430,32 +1021,6 @@ class Manager:
             self.animal_num = [0, 0, 0, 0, 0, 0]
             self.ice_num = 0
             self.reset_mode = False
-
-    # def draw_task(self):
-    #     board_center_position = (400, 90)
-    #     animal_center_position = (430, 35)
-    #     txt_center_position = (460, 60)
-    #     txt_size = 30
-    #     color = (0, 0, 0)
-    #     if self.level == 1:
-    #         Board(Board.task_board, board_center_position).draw(self.screen)
-    #         task_animal = Element(Element.animal[4], animal_center_position)
-    #         task_animal.image = pygame.transform.smoothscale(task_animal.image, (40, 40))
-    #         task_animal.draw(self.screen)
-    #         self.load_text(str(10-self.animal_num[4]), txt_center_position, txt_size, color)
-    #     if self.level == 2:
-    #         Board(Board.task_board, board_center_position).draw(self.screen)
-    #         task_animal = Element(Element.animal[1], animal_center_position)
-    #         task_animal.image = pygame.transform.smoothscale(task_animal.image, (40, 40))
-    #         task_animal.draw(self.screen)
-    #         self.load_text(str(21-self.animal_num[1]), txt_center_position, txt_size, color)
-    #     if self.level == 3:
-    #         Board(Board.task_board, (board_center_position[0]-100, board_center_position[1])).draw(self.screen)
-    #         Board(Board.task_board, (board_center_position[0]+100, board_center_position[1])).draw(self.screen)
-    #         task_animal = Element(Element.animal[4], (430, 35))
-    #         task_animal.image = pygame.transform.smoothscale(task_animal.image, (40, 40))
-    #         task_animal.draw(self.screen)
-    #         self.load_text(str(10 - self.animal_num[1]), (460, 60), 30)
 
     def num_add(self):
         if self.num_sign:
