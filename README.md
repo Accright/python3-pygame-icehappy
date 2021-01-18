@@ -1,5 +1,12 @@
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
+[![Python Version](https://img.shields.io/github/pipenv/locked/python-version/metabolize/rq-dashboard-on-heroku)
+
 ## 项目名称
-项目命名为：pyIceHappy ，一款利用Python3和Pygame开发的桌面端消消乐游戏，本项目使用分文件的构建方式，自主设计和编写了消除、交换、判断是否为可消除图等算法，并自行担任UI设计，实现了开心消消乐的选择关卡、金币、步数、消除、随机分配消除块等基本功能。
+项目命名为：pyIceHappy 
+
+一款利用Python3和Pygame开发的桌面端消消乐游戏，本项目使用分文件的构建方式，自主设计和编写了消除、交换、判断是否为可消除图等算法，并自行担任UI设计，实现了开心消消乐的选择关卡、金币、步数、消除、随机分配消除块等基本功能。
+
+A desktop-side elimination game developed using Python3 and Pygame. This project uses a file-based construction method to independently design and write algorithms for elimination, exchange, and judgment whether it is an eliminateable graph, and take the role of UI design. The basic functions such as the selection of levels, gold coins, number of steps, elimination, random allocation of elimination blocks, etc. of Happy Match.
 
 ## 项目介绍
 
