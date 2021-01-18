@@ -1,5 +1,5 @@
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
-[![Python Version](https://img.shields.io/github/pipenv/locked/python-version/metabolize/rq-dashboard-on-heroku)
+[![Python Version](https://img.shields.io/github/pipenv/locked/python-version/metabolize/rq-dashboard-on-heroku)]
 
 ## 项目名称
 项目命名为：pyIceHappy 
